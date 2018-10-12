@@ -1,5 +1,7 @@
 import React from 'react';
 
+const itemHeight = 55;
+
 const styles = {
   bix: {
     display: 'flex',
@@ -15,19 +17,16 @@ const styles = {
   },
   item: {
     width: 100,
-    height: 32,
+    height: itemHeight,
     textAlign: 'center',
-    transition: 'background-color .3s, color .3s, box-shadow .5s',
     cursor: 'pointer',
     userSelect: 'none',
   },
 };
 
-const itemHeight = 32;
-
 const getCurrentIndex = ({ selectedIdx, moveY, length }) => {
   const startTop = itemHeight * selectedIdx;
-  const presentTop = parseInt(startTop, 10) + (moveY - window.startY);
+  const presentTop = startTop + (moveY - window.startY);
   let currentIdx = Math.ceil((presentTop - itemHeight / 2) / itemHeight);
   if (currentIdx < 0) currentIdx = 0;
   if (currentIdx > length - 1) currentIdx = length - 1;
@@ -96,7 +95,9 @@ class App extends React.Component {
 
     newList.splice(currentIdx, 0, { name: 'hold' });
 
-    let y = moveY - itemHeight;
+    const startTop = itemHeight * selectedIdx;
+
+    let y = startTop + (moveY - window.startY);
     if (moveY - itemHeight > itemHeight * (navList.length - 1)) {
       y = itemHeight * (navList.length - 1);
     }
