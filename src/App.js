@@ -29,9 +29,10 @@ class App extends React.Component {
   }
 
   render() {
+    const { navList, selectedItem } = this.state;
     return (
       <div style={styles.box}>
-        <List {...this.state} />
+        <List datalist={navList} selectedItem={selectedItem} direction="row" />
       </div>
     );
   }
